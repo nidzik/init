@@ -1,0 +1,21 @@
+#!/bin/bash
+
+TMP=~/crontabTmp
+REF=~/crontabRef
+shasum /etc/crontab > $TMP
+
+BODY="Hi root, the crontab has been modified. Please verify the action origin."
+SUBJECT="WARNING ! Crontab modification."
+
+if [ -f $REF ]; then
+    if [ "$(diff $TMP $REF)" != "" ]; then
+	echo "$BODY" | mail -s "$SUBJECT" root
+    fi
+fi
+
+mv $TMP $REF
+
+
+## ADD to crontables
+# crontab -e
+# 0 0 * * * /home/debian/init/Scripting/04

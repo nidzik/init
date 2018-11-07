@@ -1,0 +1,26 @@
+#!/bin/bash
+
+DATE=$(date +"%m-%d-%y")
+HOUR=$(date +"%r")
+FILE="/var/log/update_script.log"
+
+UPDATE="apt-get update  2>> $FILE  >> $FILE"
+
+UPGRADE="apt-get upgrade -y 2>> $FILE  >> $FILE "
+
+sudo sh -c "echo  '\n\n\n ====> $DATE $HOUR'  >> $FILE"
+sudo sh -c "$UPDATE && $UPGRADE"
+
+## install cron tab with :
+
+# $ crontab -e
+
+# 0 4 * * MON ~/init/Scripting/02.sh
+# - - - - -
+# | | | | |
+# | | | | ----- Day of week (0 - 7) (Sunday=0 or 7)
+# | | | ------- Month (1 - 12)
+# | | --------- Day of month (1 - 31)
+# | ----------- Hour (0 - 23)
+# ------------- Minute (0 - 59)
+
