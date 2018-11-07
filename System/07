@@ -1,1 +1,1 @@
-sudo service sshd status | grep PID: | awk '{print }'
+sudo service sshd status | grep PID: | awk '{print $3}'
